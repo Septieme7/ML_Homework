@@ -81,6 +81,9 @@ model.add(Bidirectional(LSTM(64, activation='tanh', return_sequences=False)))
 model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 
+model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
+model.summary()
+
 print('Train...')
 model.fit(x_train, y_train,
           batch_size=batch_size,
