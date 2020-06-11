@@ -44,7 +44,7 @@ class LossHistory(keras.callbacks.Callback):
         plt.ylabel('acc-loss')
         plt.legend(loc='upper right')
         plt.show()
-        plt.savefig("loss_history.png")
+        plt.savefig("cnn_loss_history.png")
 
 
 # define callbacks

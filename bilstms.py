@@ -40,6 +40,7 @@ class LossHistory(keras.callbacks.Callback):
         plt.xlabel(loss_type)
         plt.ylabel('acc-loss')
         plt.legend(loc='upper right')
+        plt.savefig("lstms_loss_history.png")
         plt.show()
 
 
@@ -65,8 +66,8 @@ y_test = np.array(y_test)
 model = Sequential()
 model.add(Embedding(max_features, 128, input_length=maxlen))
 #  return_sequences=True: 在所有步都产生输出
-model.add(Bidirectional(LSTM(64, activation='relu', return_sequences=True)))
-model.add(Bidirectional(LSTM(64, activation='relu', return_sequences=False)))
+model.add(Bidirectional(LSTM(128, activation='relu', return_sequences=False)))
+model.add(Bidirectional(LSTM(64,activation="relu",return_sequences=False)))
 model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
 model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
