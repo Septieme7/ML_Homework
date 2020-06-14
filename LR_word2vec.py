@@ -1,4 +1,3 @@
-from gensim import utils
 from gensim.models import Word2Vec
 # numpy
 import numpy as np

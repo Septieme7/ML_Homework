@@ -42,7 +42,7 @@ class LossHistory(keras.callbacks.Callback):
         plt.grid(True)
         plt.xlabel(loss_type)
         plt.ylabel('acc-loss')
-        plt.legend(loc='upper right')
+        plt.legend(loc='lower right')
         plt.show()
         plt.savefig("cnn_loss_history.png")
 
@@ -52,7 +52,7 @@ history = LossHistory()
 early_stopping = EarlyStopping(monitor='val_accuracy', min_delta=0.001, patience=3, verbose=1, mode='auto')
 
 max_features = 10000
-maxlen = 400  # 每篇文章最多保留 200 个词
+maxlen = 200  # 每篇文章最多保留 400 个词
 batch_size = 64
 
 print('Loading data...')
@@ -68,19 +68,27 @@ print('x_test shape:', x_test.shape)
 y_train = np.array(y_train)
 y_test = np.array(y_test)
 
+
+
 model = Sequential()
 model.add(Embedding(max_features, 64, input_length=maxlen))  # 嵌入层
 # 一维卷积，卷积核个数 128，卷积核维度 5
-# 200 * 64 => (200 - 5 + 1) * 128 = (196, 128)
-# 每个卷积核会产生一个 196 维的向量，128 个卷积核，也就是 128 个 196 维的向量
-# 但是 LSTM 的第一步输入相当于是所有卷积核对前 5 个词的卷积结果，依次类推，所以 LSTM 一共是 196 步，每步的输入是一个 128 维的向量
+# 400 * 64 => (400 - 5 + 1) * 128 = (396, 128)
+# 每个卷积核会产生一个 396 维的向量，128 个卷积核，也就是 128 个 396 维的向量
+# 但是 LSTM 的第一步输入相当于是所有卷积核对前 5 个词的卷积结果，依次类推，所以 LSTM 一共是 396 步，每步的输入是一个 128 维的向量
 # 由于是双向循环神经网络，每步的输出也是一个 128 维的向量，但是只在最后一步产生一个输出
+
 model.add(Conv1D(activation="relu", filters=128, kernel_size=5, strides=1, padding="valid"))
-model.add(Bidirectional(LSTM(64, activation='tanh', return_sequences=False)))
 model.add(Dropout(0.5))
+
+model.add(Bidirectional(LSTM(64, activation='tanh', return_sequences=False)))
+
+model.add(Dropout(0.5))
+
 model.add(Dense(1, activation='sigmoid'))
 
 model.compile('adam', 'binary_crossentropy', metrics=['accuracy'])
+
 model.summary()
 
 print('Train...')
