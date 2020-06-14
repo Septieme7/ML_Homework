@@ -49,11 +49,11 @@ class LossHistory(keras.callbacks.Callback):
 
 # define callbacks
 history = LossHistory()
-early_stopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=10, verbose=1, mode='auto')
+early_stopping = EarlyStopping(monitor='val_accuracy', min_delta=0.001, patience=3, verbose=1, mode='auto')
 
-max_features = 5000
-maxlen = 200  # 每篇文章最多保留 200 个词
-batch_size = 32
+max_features = 10000
+maxlen = 400  # 每篇文章最多保留 200 个词
+batch_size = 64
 
 print('Loading data...')
 (x_train, y_train), (x_test, y_test) = imdb.load_data(num_words=max_features)

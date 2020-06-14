@@ -46,8 +46,8 @@ class LossHistory(keras.callbacks.Callback):
 
 history = LossHistory()
 
-max_features = 5000
-maxlen = 200
+max_features = 10000
+maxlen = 400
 batch_size = 32
 
 print('Loading data...')
