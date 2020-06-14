@@ -38,7 +38,6 @@ x_train, x_test, y_train, y_test = train_test_split(np.concatenate((pos_reviews,
 
 # 创建TaggedDocument对象
 # Gensim 的 Doc2Vec 工具要求每个文档/段落包含一个与之关联的标签。我们利用 TaggedDocument进行处理。
-# 格式形如 “TRAIN_i” 或者 “TEST_i”，其中 “i” 是索引
 def labelize_reviews(reviews, label_type):
     for i, v in enumerate(reviews):
         label = '%s_%s' % (label_type, i)

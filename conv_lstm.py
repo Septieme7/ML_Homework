@@ -49,7 +49,7 @@ class LossHistory(keras.callbacks.Callback):
 
 # define callbacks
 history = LossHistory()
-early_stopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=3, verbose=1, mode='auto')
+early_stopping = EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=10, verbose=1, mode='auto')
 
 max_features = 5000
 maxlen = 200  # 每篇文章最多保留 200 个词
