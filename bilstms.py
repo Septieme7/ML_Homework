@@ -46,8 +46,8 @@ class LossHistory(keras.callbacks.Callback):
 
 history = LossHistory()
 
-max_features = 20000
-maxlen = 100
+max_features = 5000
+maxlen = 200
 batch_size = 32
 
 print('Loading data...')
@@ -66,7 +66,7 @@ y_test = np.array(y_test)
 model = Sequential()
 model.add(Embedding(max_features, 128, input_length=maxlen))
 #  return_sequences=True: 在所有步都产生输出
-model.add(Bidirectional(LSTM(96, activation='relu', return_sequences=True)))
+model.add(Bidirectional(LSTM(64, activation='relu', return_sequences=True)))
 model.add(Bidirectional(LSTM(64, activation="relu", return_sequences=False)))
 model.add(Dropout(0.5))
 model.add(Dense(1, activation='sigmoid'))
